@@ -1,0 +1,60 @@
+[versions]
+kotlin = "1.9.24"
+kotlinx = "1.8.1"
+springBoot = "3.4.4"
+junitJupiter = "5.10.2"
+junitPlatformLauncher = "1.10.2"
+guava = "33.1.0-jre"
+jackson = "2.16.2"
+commonsIo = "2.16.1"
+commonsLang3 = "3.14.0"
+# libraries
+annotations = "24.1.0"
+# plugins
+changelog = "2.2.0"
+gradleIntelliJPlugin = "1.17.2"
+qodana = "2023.3.1"
+kover = "0.7.6"
+springGrpcVersion = "0.6.0"
+protobufPlugin = "0.9.5"
+springBootDependenciesPlugin = "1.1.7"
+
+[libraries]
+springBootDependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "springBoot" }
+springGrpcBom = { group = "org.springframework.grpc", name = "spring-grpc-dependencies", version.ref = "springGrpcVersion" }
+
+kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx" }
+
+guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
+# jackson
+jacksonCore = { group = "com.fasterxml.jackson.core", name = "jackson-core", version.ref = "jackson" }
+jacksonAnnotations = { group = "com.fasterxml.jackson.core", name = "jackson-annotations", version.ref = "jackson" }
+jacksonDatabind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
+jacksonDatatypeJsr310 = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version.ref = "jackson" }
+jacksonDatatypeGuava = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-guava", version.ref = "jackson" }
+jacksonDatatypeJdk8 = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jdk8", version.ref = "jackson" }
+jacksonDataformatYaml = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-yaml", version.ref = "jackson" }
+jacksonModuleParameterNames = { group = "com.fasterxml.jackson.module", name = "jackson-module-parameter-names", version.ref = "jackson" }
+jacksonModuleKotlin = { group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin", version.ref = "jackson" }
+
+commonsIo = { group = "commons-io", name = "commons-io", version.ref = "commonsIo" }
+commonsLang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commonsLang3" }
+
+junitJupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
+junitPlatformLauncher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatformLauncher" }
+
+# for build conventions jvm dependencies
+kotlinGradlePlugin = { group = "org.jetbrains.kotlin.jvm", name = "org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }
+kotlinSpringPlugin = { group = "org.jetbrains.kotlin.plugin.spring", name = "org.jetbrains.kotlin.plugin.spring.gradle.plugin", version.ref = "kotlin" }
+springBootPlugin = { group = "org.springframework.boot", name = "org.springframework.boot.gradle.plugin", version.ref = "springBoot" }
+protobufPlugin = { group = "com.google.protobuf", name = "protobuf-gradle-plugin", version.ref = "protobufPlugin" }
+springDependenciesPlugin = { group = "io.spring.gradle", name = "dependency-management-plugin", version.ref = "springBootDependenciesPlugin" }
+
+annotations = { group = "org.jetbrains", name = "annotations", version.ref = "annotations" }
+
+[plugins]
+changelog = { id = "org.jetbrains.changelog", version.ref = "changelog" }
+gradleIntelliJPlugin = { id = "org.jetbrains.intellij", version.ref = "gradleIntelliJPlugin" }
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+qodana = { id = "org.jetbrains.qodana", version.ref = "qodana" }
