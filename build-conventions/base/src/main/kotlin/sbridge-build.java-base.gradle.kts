@@ -1,7 +1,7 @@
 import org.gradle.jvm.toolchain.JvmVendorSpec.ADOPTIUM
 
 plugins {
-    `java-base`
+    `java-library`
     idea
 }
 

@@ -1,8 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.nevermore.sbridge.build.coordinateFromVersionCatalog
-import com.nevermore.sbridge.build.configureTestingFramework
 import com.google.protobuf.gradle.id
+import com.nevermore.sbridge.build.configureTestingFramework
+import com.nevermore.sbridge.build.coordinateFromVersionCatalog
 
 plugins {
     id("java-library")
@@ -45,7 +45,9 @@ val profile: String? by project
 
 tasks {
     processResources {
-        expand("activeProfile" to (profile ?: "dev"))
+        filesMatching("application.yml") {
+            expand("activeProfile" to (profile ?: "dev"))
+        }
     }
 
     bootRun {

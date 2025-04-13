@@ -1,10 +1,14 @@
 [versions]
-kotlin = "1.9.24"
+kotlin = "2.1.20"
 kotlinx = "1.8.1"
 springBoot = "3.4.4"
+springBootDependenciesPlugin = "1.1.7"
+springGrpcVersion = "0.6.0"
+springAotVersion = "0.12.2"
 junitJupiter = "5.10.2"
 junitPlatformLauncher = "1.10.2"
 guava = "33.1.0-jre"
+netty = "4.2.0.Final"
 jackson = "2.16.2"
 commonsIo = "2.16.1"
 commonsLang3 = "3.14.0"
@@ -15,15 +19,19 @@ changelog = "2.2.0"
 gradleIntelliJPlugin = "1.17.2"
 qodana = "2023.3.1"
 kover = "0.7.6"
-springGrpcVersion = "0.6.0"
 protobufPlugin = "0.9.5"
-springBootDependenciesPlugin = "1.1.7"
+picocli = "4.7.5"
+graalvm = "0.10.1"
 
 [libraries]
 springBootDependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "springBoot" }
 springGrpcBom = { group = "org.springframework.grpc", name = "spring-grpc-dependencies", version.ref = "springGrpcVersion" }
+nettyBom = { group = "io.netty", name = "netty-bom", version.ref = "netty" }
 
 kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx" }
+
+picocliSpringBootStarter = { group = "info.picocli", name = "picocli-spring-boot-starter", version.ref = "picocli" }
+picocliCodegen = { group = "info.picocli", name = "picocli-codegen", version.ref = "picocli" }
 
 guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
 # jackson
@@ -43,6 +51,9 @@ commonsLang3 = { group = "org.apache.commons", name = "commons-lang3", version.r
 junitJupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
 junitPlatformLauncher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatformLauncher" }
 
+springAot = { module = "org.springframework.experimental:spring-aot", version.ref = "springAotVersion" }
+
+
 # for build conventions jvm dependencies
 kotlinGradlePlugin = { group = "org.jetbrains.kotlin.jvm", name = "org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }
 kotlinSpringPlugin = { group = "org.jetbrains.kotlin.plugin.spring", name = "org.jetbrains.kotlin.plugin.spring.gradle.plugin", version.ref = "kotlin" }
@@ -53,6 +64,10 @@ springDependenciesPlugin = { group = "io.spring.gradle", name = "dependency-mana
 annotations = { group = "org.jetbrains", name = "annotations", version.ref = "annotations" }
 
 [plugins]
+springBoot = { id = "org.springframework.boot", version.ref = "springBoot" }
+springDependencyManagement = { id = "io.spring.dependency-management", version.ref = "springBootDependenciesPlugin" }
+graalvmBuildTools = { id = "org.graalvm.buildtools.native", version.ref = "graalvm" }
+
 changelog = { id = "org.jetbrains.changelog", version.ref = "changelog" }
 gradleIntelliJPlugin = { id = "org.jetbrains.intellij", version.ref = "gradleIntelliJPlugin" }
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
