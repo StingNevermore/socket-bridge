@@ -23,8 +23,8 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Enviroment**
-The running enviroments, like:
+**Environment**
+The running environments, like:
 1. os version
 2. JDK version
 3. CPU arch
