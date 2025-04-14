@@ -5,6 +5,8 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":libs:cli-server-communication"))
+
     implementation(libs.guava)
 
     implementation("io.netty:netty-all")

@@ -11,6 +11,7 @@ dependencies {
     implementation(libs.picocliSpringBootStarter) {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
     }
+    implementation(project(":libs:cli-server-communication"))
     annotationProcessor(libs.picocliCodegen)
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {

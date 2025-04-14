@@ -9,18 +9,22 @@
 
 package com.nevermore.sbridge.server;
 
-import java.io.*;
+import static com.nevermore.sbridge.constants.CliServerCommunicationsConstants.SERVER_READY_MARKER;
+import static com.nevermore.sbridge.server.ProcessUtil.nonInterruptibleVoid;
+
+import java.io.BufferedReader;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
-
-import static com.nevermore.sbridge.server.ProcessUtil.nonInterruptibleVoid;
 
 /**
  *
  */
 public class ErrorPumpThread extends Thread implements Closeable {
     private final BufferedReader reader;
-    public static final char SERVER_READY_MARKER = '\u0018';
 
     private final CountDownLatch readyOrDead = new CountDownLatch(1);
     private volatile boolean ready;
