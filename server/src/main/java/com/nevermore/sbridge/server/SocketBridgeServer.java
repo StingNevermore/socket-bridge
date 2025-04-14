@@ -13,13 +13,6 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.MultiThreadIoEventLoopGroup;
-import io.netty.channel.ServerChannel;
-import io.netty.channel.epoll.Epoll;
-import io.netty.channel.epoll.EpollIoHandler;
-import io.netty.channel.epoll.EpollServerSocketChannel;
-import io.netty.channel.kqueue.KQueue;
-import io.netty.channel.kqueue.KQueueIoHandler;
-import io.netty.channel.kqueue.KQueueServerSocketChannel;
 import io.netty.channel.nio.NioIoHandler;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -38,7 +31,7 @@ public class SocketBridgeServer implements ApplicationRunner, DisposableBean {
     private static final Logger logger = LoggerFactory.getLogger(SocketBridgeServer.class);
 
     private static final int PORT = 8888;
-    private static final String WEBSOCKET_PATH = "/websocket";
+    private static final String WEBSOCKET_PATH = "/ws";
 
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
@@ -51,31 +44,14 @@ public class SocketBridgeServer implements ApplicationRunner, DisposableBean {
         bossGroup = new MultiThreadIoEventLoopGroup(NioIoHandler.newFactory());
         workerGroup = new MultiThreadIoEventLoopGroup(NioIoHandler.newFactory());
 
-        Class<? extends ServerChannel> channelClass;
-        if (isOnLinux() && Epoll.isAvailable()) {
-            bossGroup = new MultiThreadIoEventLoopGroup(EpollIoHandler.newFactory());
-            workerGroup = new MultiThreadIoEventLoopGroup(EpollIoHandler.newFactory());
-            channelClass = EpollServerSocketChannel.class;
-            logger.info("Using Epoll");
-        } else if (isOnMac() && KQueue.isAvailable()) {
-            bossGroup = new MultiThreadIoEventLoopGroup(KQueueIoHandler.newFactory());
-            workerGroup = new MultiThreadIoEventLoopGroup(KQueueIoHandler.newFactory());
-            channelClass = KQueueServerSocketChannel.class;
-            logger.info("Using KQueue");
-        } else {
-            bossGroup = new MultiThreadIoEventLoopGroup(NioIoHandler.newFactory());
-            workerGroup = new MultiThreadIoEventLoopGroup(NioIoHandler.newFactory());
-            channelClass = NioServerSocketChannel.class;
-            logger.info("Using NIO");
-        }
-        startServer(channelClass);
+        startServer();
     }
 
-    private <T extends ServerChannel> void startServer(Class<T> channelClass) throws Exception {
+    private void startServer() throws Exception {
         try {
             var bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup, workerGroup)
-                    .channel(channelClass)
+                    .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
@@ -104,14 +80,6 @@ public class SocketBridgeServer implements ApplicationRunner, DisposableBean {
             shutdownGracefully();
             throw e;
         }
-    }
-
-    private boolean isOnLinux() {
-        return System.getProperty("os.name").toLowerCase().contains("linux");
-    }
-
-    private boolean isOnMac() {
-        return System.getProperty("os.name").toLowerCase().contains("mac");
     }
 
     @Override
