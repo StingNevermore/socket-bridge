@@ -19,6 +19,7 @@ build/
 .idea
 !.idea/codeStyles
 !.idea/inspectionProfiles
+!.idea/icon.png
 *.iws
 *.iml
 *.ipr
