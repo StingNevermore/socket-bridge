@@ -3,8 +3,7 @@
 rootProject.name = "socket-bridge"
 
 include(":server")
-include(":distributions")
-include(":distributions:cli-tools")
+include(":cli-tools")
 include(":libs")
 include(":libs:cli-server-communication")
 
