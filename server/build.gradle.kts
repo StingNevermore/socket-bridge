@@ -24,6 +24,6 @@ tasks {
     }
     bootJar {
         enabled = true
-        archiveFileName.set("socket-bridge-server-${version}.jar")
+        archiveFileName.set("socket-bridge-server.jar")
     }
 }

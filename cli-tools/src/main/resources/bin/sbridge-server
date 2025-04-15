@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e -o pipefail
+
+source "$(dirname "$0")"/sbridge-server-env
+
+CLI_EXECUTABLE="$SBRIDGE_HOME/bin/sbridge-cli"
+if [ ! -x "$CLI_EXECUTABLE" ]; then
+  echo "Could not find CLI executable at $CLI_EXECUTABLE" >&2
+  exit 1
+fi
+
+exec \
+ $CLI_EXECUTABLE \
+  -Dcli.script="$0" \
+  -Djava.executable="$JAVA_EXECUTABLE" \
+  -Dsbridge.home="$SBRIDGE_HOME" \
+ "$@"

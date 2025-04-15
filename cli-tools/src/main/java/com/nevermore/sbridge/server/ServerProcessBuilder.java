@@ -2,7 +2,6 @@ package com.nevermore.sbridge.server;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -41,10 +40,7 @@ public class ServerProcessBuilder {
     }
 
     private String getCommand() {
-        var javaHome = FileSystems.getDefault().getPath(cliProcessInfo.sysProps().get("java.home"));
-
-        var isWindows = cliProcessInfo.sysProps().get("os.name").startsWith("Windows");
-        return javaHome.resolve("bin").resolve("java" + (isWindows ? ".exe" : "")).toString();
+        return cliProcessInfo.sysProps().get("java.executable");
     }
 
     private static void checkRequiredArgument(Object argument, String argumentName) {
@@ -88,19 +84,20 @@ public class ServerProcessBuilder {
         return new ServerProcess(jvmProcess, errorPump);
     }
 
-    private static Process createProcess(
+    private Process createProcess(
             String command,
             List<String> jvmOptions,
             Map<String, String> environment
     ) throws InterruptedException, IOException {
+        var sbridgeHome = cliProcessInfo.sysProps().get("sbridge.home");
         var jvmArgs = List.of(
-                "-jar", "libs/socket-bridge-server.jar"
+                "-jar", sbridgeHome + "/libs/socket-bridge-server.jar"
         );
 
-        var builder = new ProcessBuilder(
-                Stream.concat(Stream.of(command),
-                                Stream.concat(jvmOptions.stream(), jvmArgs.stream()))
-                        .toList());
+        var builder = new ProcessBuilder(Stream.concat(Stream.of(command),
+                        Stream.concat(jvmOptions.stream(), jvmArgs.stream()))
+                .toList());
+
         builder.environment().putAll(environment);
         builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
 

@@ -41,8 +41,8 @@ public class ServerStartCli extends AbstractCli {
     }
 
     private void startServer() throws IOException {
-        String cwd = System.getProperty("user.dir");
-        Path jvmOptionsFile = Paths.get(cwd).resolve("jvm.options");
+        String sbridgeHome = System.getProperty("sbridge.home");
+        Path jvmOptionsFile = Paths.get(sbridgeHome).resolve("config/jvm.options");
 
         List<String> jvmOptions = new ArrayList<>();
         TreeMap<Integer, String> invalidJvmOptions = new TreeMap<>();

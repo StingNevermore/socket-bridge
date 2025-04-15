@@ -45,7 +45,6 @@ public class ErrorPumpThread extends Thread implements Closeable {
 
     @Override
     public void close() throws IOException {
-        assert !isAlive() : "Pump thread must be drained first";
         checkForIoFailure();
     }
 
@@ -62,19 +61,12 @@ public class ErrorPumpThread extends Thread implements Closeable {
         return ready;
     }
 
-    /**
-     * Waits for the stderr pump thread to exit.
-     */
-    void drain() {
-        nonInterruptibleVoid(this::join);
-    }
-
     @Override
     public void run() {
         try {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (!line.isEmpty() && line.charAt(0) == SERVER_READY_MARKER) {
+                if (line.startsWith(SERVER_READY_MARKER + "")) {
                     ready = true;
                     readyOrDead.countDown();
                 }
