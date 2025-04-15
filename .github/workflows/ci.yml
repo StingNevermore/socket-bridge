@@ -23,7 +23,7 @@ jobs:
       - name: Set up GraalVM JDK 21
         uses: graalvm/setup-graalvm@v1
         with:
-          version: '21'
+          java-version: '21'
           distribution: 'graalvm'
           set-java-home: false
       - name: Setup Gradle
