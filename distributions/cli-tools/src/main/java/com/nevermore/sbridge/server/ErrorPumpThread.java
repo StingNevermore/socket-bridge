@@ -45,7 +45,7 @@ public class ErrorPumpThread extends Thread implements Closeable {
 
     @Override
     public void close() throws IOException {
-        assert isAlive() == false : "Pump thread must be drained first";
+        assert !isAlive() : "Pump thread must be drained first";
         checkForIoFailure();
     }
 

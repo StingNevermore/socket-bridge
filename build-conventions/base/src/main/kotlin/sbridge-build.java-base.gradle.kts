@@ -1,12 +1,9 @@
 import org.gradle.jvm.toolchain.JvmVendorSpec.ADOPTIUM
 
 plugins {
+    id("sbridge-build.base")
     `java-library`
-    idea
 }
-
-group = "com.nevermore"
-version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -19,12 +16,6 @@ java {
         vendor = ADOPTIUM
     }
 }
-
-//idea {
-//    module {
-//        isDownloadSources = true
-//    }
-//}
 
 tasks.withType<JavaCompile> {
     options.apply {
