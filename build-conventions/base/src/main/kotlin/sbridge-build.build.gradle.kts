@@ -29,7 +29,7 @@ val buildExploded = tasks.register<DefaultTask>("buildExploded") {
         }
 
         copy {
-            from(project(":distributions:cli-tools").layout.buildDirectory.dir("native/nativeCompile"))
+            from(project(":cli-tools").layout.buildDirectory.dir("native/nativeCompile"))
             include("*")
             into(binDir)
         }
@@ -41,7 +41,7 @@ val buildExploded = tasks.register<DefaultTask>("buildExploded") {
         }
 
         copy {
-            from(project(":distributions:cli-tools").layout.buildDirectory.dir("resources/main"))
+            from(project(":cli-tools").layout.buildDirectory.dir("resources/main"))
             include("jvm.options")
             into(configDir)
         }
@@ -70,7 +70,7 @@ tasks.assemble {
 tasks.clean {
     dependsOn(
         subprojects
-            .filter { it.name in arrayOf(":server", ":distributions:cli-tools") }
+            .filter { it.name in arrayOf(":server", ":cli-tools") }
             .map { it.tasks.clean }
     )
 
