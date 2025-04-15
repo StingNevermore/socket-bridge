@@ -24,7 +24,7 @@ val buildExploded = tasks.register<DefaultTask>("buildExploded") {
 
         copy {
             from(project(":server").layout.buildDirectory.dir("libs"))
-            include("socket-bridge-*.jar")
+            include("socket-bridge-server.jar")
             into(libsDir)
         }
 
@@ -36,7 +36,7 @@ val buildExploded = tasks.register<DefaultTask>("buildExploded") {
 
         copy {
             from(project(":server").layout.buildDirectory.dir("resources/main"))
-            include("*")
+            include("application*.yml")
             into(configDir)
         }
 
@@ -44,6 +44,12 @@ val buildExploded = tasks.register<DefaultTask>("buildExploded") {
             from(project(":cli-tools").layout.buildDirectory.dir("resources/main"))
             include("jvm.options")
             into(configDir)
+        }
+
+        copy {
+            from(project(":cli-tools").layout.buildDirectory.dir("resources/main/bin"))
+            include("*")
+            into(binDir)
         }
 
         logger.lifecycle("Artifacts copied to ${outputDirFile.absolutePath}")

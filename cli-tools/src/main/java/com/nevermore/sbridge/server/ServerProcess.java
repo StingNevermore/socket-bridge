@@ -11,8 +11,6 @@ package com.nevermore.sbridge.server;
 
 import java.io.IOException;
 
-import static com.nevermore.sbridge.server.ProcessUtil.nonInterruptible;
-
 /**
  *
  */
@@ -25,6 +23,7 @@ public class ServerProcess {
     private final ErrorPumpThread errorPump;
 
     // a flag marking whether the streams of the java subprocess have been closed
+    @SuppressWarnings("unused")
     private volatile boolean detached = false;
 
     public ServerProcess(Process jvmProcess, ErrorPumpThread errorPump) {
@@ -45,7 +44,6 @@ public class ServerProcess {
      * @throws IOException If an I/O error occurred while reading stderr or closing any of the standard streams
      */
     public synchronized void detach() throws IOException {
-        errorPump.drain();
         try {
             jvmProcess.getOutputStream().close();
             jvmProcess.getInputStream().close();
@@ -54,15 +52,5 @@ public class ServerProcess {
         } finally {
             detached = true;
         }
-    }
-
-    /**
-     * Waits for the subprocess to exit.
-     */
-    public int waitFor() throws IOException {
-        errorPump.drain();
-        int exitCode = nonInterruptible(jvmProcess::waitFor);
-        errorPump.close();
-        return exitCode;
     }
 }

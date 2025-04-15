@@ -4,19 +4,23 @@ import static com.nevermore.sbridge.constants.CliServerCommunicationsConstants.S
 
 import java.time.Duration;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Snake
  */
-@Component
 public class ServerReadyListener implements SpringApplicationRunListener {
+
+    @SuppressWarnings({"unused"})
+    public ServerReadyListener(SpringApplication SpringApplication, String[] args) {
+        // Constructor
+    }
 
     @Override
     public void ready(ConfigurableApplicationContext context, Duration timeTaken) {
         // for cli startup
-        System.err.print(SERVER_READY_MARKER);
+        System.err.println(SERVER_READY_MARKER);
     }
 }
