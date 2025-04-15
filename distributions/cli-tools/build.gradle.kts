@@ -41,7 +41,6 @@ graalvmNative {
             buildArgs.add("--no-fallback")
             buildArgs.add("-H:+UnlockExperimentalVMOptions")
             buildArgs.add("-H:+ReportExceptionStackTraces")
-            buildArgs.add("--initialize-at-run-time=com.semmle.extractor.java.InterceptingAgent,com.semmle.extractor.java.interceptors.ECJInterceptor")
 //            buildArgs.add("-H:+StripDebugInfo")
             buildArgs.add("-H:Optimize=2")
             buildArgs.add("-H:+RemoveSaturatedTypeFlows")
