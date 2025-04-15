@@ -11,4 +11,5 @@ public class ExitCode {
     public static final int SERVER_ALREADY_RUNNING = 4;
     public static final int SERVER_START_FAILED = 5;
     public static final int SERVER_STOP_FAILED = 6;
+    public static final int USAGE_JVM_OPTIONS = 7;
 }

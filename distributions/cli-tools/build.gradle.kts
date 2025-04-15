@@ -50,3 +50,9 @@ graalvmNative {
 }
 
 configureTestingFramework()
+
+tasks {
+    assemble {
+        dependsOn("nativeCompile")
+    }
+}
