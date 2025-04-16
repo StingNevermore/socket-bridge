@@ -1,9 +1,7 @@
 package com.nevermore.sbridge;
 
 import static com.nevermore.sbridge.constants.CliServerCommunicationsConstants.SERVER_READY_MARKER;
-import static java.io.OutputStream.nullOutputStream;
 
-import java.io.PrintStream;
 import java.time.Duration;
 
 import org.springframework.boot.SpringApplication;
@@ -23,9 +21,9 @@ public class ServerReadyListener implements SpringApplicationRunListener {
     @Override
     public void ready(ConfigurableApplicationContext context, Duration timeTaken) {
         // for cli startup
-        System.err.println(SERVER_READY_MARKER);
+        System.err.print(SERVER_READY_MARKER);
         System.err.flush();
-        System.setErr(new PrintStream(nullOutputStream()));
-        System.setOut(new PrintStream(nullOutputStream()));
+        //        System.setErr(new PrintStream(nullOutputStream()));
+        //        System.setOut(new PrintStream(nullOutputStream()));
     }
 }

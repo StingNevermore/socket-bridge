@@ -11,4 +11,5 @@ dependencies {
     implementation(libs.kotlinSpringPlugin)
     implementation(libs.protobufPlugin)
     implementation(libs.springDependenciesPlugin)
+    implementation(libs.kotlinKaptPlugin)
 }
