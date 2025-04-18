@@ -21,6 +21,9 @@ public class ServerReadyListener implements SpringApplicationRunListener {
     @Override
     public void ready(ConfigurableApplicationContext context, Duration timeTaken) {
         // for cli startup
-        System.err.println(SERVER_READY_MARKER);
+        System.err.print(SERVER_READY_MARKER);
+        System.err.flush();
+        //        System.setErr(new PrintStream(nullOutputStream()));
+        //        System.setOut(new PrintStream(nullOutputStream()));
     }
 }

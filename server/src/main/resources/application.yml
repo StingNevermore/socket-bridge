@@ -1,3 +1,8 @@
 spring:
   profiles:
     active: ${activeProfile}
+sbridge:
+  bridge:
+    enableSharedEventLoopGroup: true
+    websocket:
+      enabled: true

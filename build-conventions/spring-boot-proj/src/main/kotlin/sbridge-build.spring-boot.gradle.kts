@@ -35,6 +35,17 @@ dependencyManagement {
 
 configureTestingFramework()
 
+val mockitoAgent = configurations.create("mockitoAgent")
+dependencies {
+    mockitoAgent("org.mockito:mockito-core") { isTransitive = false }
+}
+
+tasks {
+    test {
+        jvmArgs("-javaagent:${mockitoAgent.asPath}", "-Xshare:off")
+    }
+}
+
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())

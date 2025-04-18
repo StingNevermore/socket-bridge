@@ -57,6 +57,7 @@ springAot = { module = "org.springframework.experimental:spring-aot", version.re
 # for build conventions jvm dependencies
 kotlinGradlePlugin = { group = "org.jetbrains.kotlin.jvm", name = "org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }
 kotlinSpringPlugin = { group = "org.jetbrains.kotlin.plugin.spring", name = "org.jetbrains.kotlin.plugin.spring.gradle.plugin", version.ref = "kotlin" }
+kotlinKaptPlugin = { group = "org.jetbrains.kotlin.kapt", name = "org.jetbrains.kotlin.kapt.gradle.plugin", version.ref = "kotlin" }
 springBootPlugin = { group = "org.springframework.boot", name = "org.springframework.boot.gradle.plugin", version.ref = "springBoot" }
 protobufPlugin = { group = "com.google.protobuf", name = "protobuf-gradle-plugin", version.ref = "protobufPlugin" }
 springDependenciesPlugin = { group = "io.spring.gradle", name = "dependency-management-plugin", version.ref = "springBootDependenciesPlugin" }
