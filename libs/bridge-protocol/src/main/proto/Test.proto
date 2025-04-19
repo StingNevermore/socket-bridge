@@ -55,3 +55,7 @@ message UnbanReq {
   BanType type = 2;
   int64 operator_id = 3;
 }
+
+service GetBanReq {
+  rpc GetBanReq (BanReq) returns (BanReq);
+}

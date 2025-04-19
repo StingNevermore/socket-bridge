@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.nevermore.sbridge.build.configureTestingFramework
+import com.nevermore.sbridge.build.fromVersionCatalog
 
 plugins {
     id("sbridge-build.java-base")
@@ -9,6 +10,8 @@ plugins {
 }
 
 dependencies {
+    implementation(platform(fromVersionCatalog("springGrpcBom")))
+
     implementation("org.springframework.boot:spring-boot-starter")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

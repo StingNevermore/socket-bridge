@@ -1,5 +1,3 @@
-import com.nevermore.sbridge.build.configureTestingFramework
-
 plugins {
     id("sbridge-build.java-base")
     alias(libs.plugins.springBoot)
@@ -49,7 +47,7 @@ graalvmNative {
     }
 }
 
-configureTestingFramework()
+//configureTestingFramework()
 
 tasks {
     assemble {

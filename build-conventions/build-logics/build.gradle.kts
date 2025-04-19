@@ -6,7 +6,6 @@ group = "sbridge-build"
 
 dependencies {
     implementation(project(":base"))
-    implementation(project(":protocol-buffers"))
 
     implementation(libs.springBootPlugin)
     implementation(libs.kotlinSpringPlugin)

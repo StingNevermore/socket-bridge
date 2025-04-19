@@ -2,7 +2,7 @@ import com.nevermore.sbridge.build.fromVersionCatalog
 
 plugins {
     id("sbridge-build.java-base")
-    id("sbridge-build.protobuf-compiler")
+    id("sbridge-build.protobuf")
     id("org.springframework.boot")
 }
 

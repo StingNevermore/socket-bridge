@@ -10,6 +10,10 @@ repositories {
     google()
 }
 
+dependencies {
+//    implementation(platform(fromVersionCatalog("springGrpcBom")))
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)

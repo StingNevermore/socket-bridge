@@ -1,5 +1,6 @@
 plugins {
     id("lifecycle-base")
+    id("idea")
 }
 
 group = "com.nevermore"

@@ -22,28 +22,19 @@ kover = "0.7.6"
 protobufPlugin = "0.9.5"
 picocli = "4.7.5"
 graalvm = "0.10.1"
+grpc = "1.70.0"
 
 [libraries]
 springBootDependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "springBoot" }
 springGrpcBom = { group = "org.springframework.grpc", name = "spring-grpc-dependencies", version.ref = "springGrpcVersion" }
 nettyBom = { group = "io.netty", name = "netty-bom", version.ref = "netty" }
+grpcBom = { group = "io.grpc", name = "grpc-bom", version.ref = "grpc" }
 
 kotlinxCoroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx" }
 
 picocliSpringBootStarter = { group = "info.picocli", name = "picocli-spring-boot-starter", version.ref = "picocli" }
 picocliCodegen = { group = "info.picocli", name = "picocli-codegen", version.ref = "picocli" }
-
 guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
-# jackson
-jacksonCore = { group = "com.fasterxml.jackson.core", name = "jackson-core", version.ref = "jackson" }
-jacksonAnnotations = { group = "com.fasterxml.jackson.core", name = "jackson-annotations", version.ref = "jackson" }
-jacksonDatabind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
-jacksonDatatypeJsr310 = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version.ref = "jackson" }
-jacksonDatatypeGuava = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-guava", version.ref = "jackson" }
-jacksonDatatypeJdk8 = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jdk8", version.ref = "jackson" }
-jacksonDataformatYaml = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-yaml", version.ref = "jackson" }
-jacksonModuleParameterNames = { group = "com.fasterxml.jackson.module", name = "jackson-module-parameter-names", version.ref = "jackson" }
-jacksonModuleKotlin = { group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin", version.ref = "jackson" }
 
 commonsIo = { group = "commons-io", name = "commons-io", version.ref = "commonsIo" }
 commonsLang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commonsLang3" }

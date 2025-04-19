@@ -7,6 +7,8 @@ plugins {
 
 dependencies {
     implementation(project(":libs:cli-server-communication"))
+    implementation(project(":libs:bridge-protocol"))
+
     implementation(libs.guava)
     implementation("io.netty:netty-all")
 

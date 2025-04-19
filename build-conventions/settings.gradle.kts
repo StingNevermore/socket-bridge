@@ -2,9 +2,8 @@
 
 rootProject.name = "build-conventions"
 
-include(":spring-boot-proj")
+include(":build-logics")
 include(":base")
-include(":protocol-buffers")
 
 dependencyResolutionManagement {
     repositories {
