@@ -1,3 +1,4 @@
+[![Socket Bridge CI](https://github.com/StingNevermore/socket-bridge/actions/workflows/ci.yml/badge.svg)](https://github.com/StingNevermore/socket-bridge/actions/workflows/ci.yml)
 # Socket Bridge
 
 Socket Bridge is a tool that provides networking socket bridging capabilities with a client-server architecture.
