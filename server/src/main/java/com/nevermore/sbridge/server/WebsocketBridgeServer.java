@@ -1,7 +1,7 @@
 package com.nevermore.sbridge.server;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.nevermore.sbridge.io.EventLoopGroupFactoryUtils.determineEventLoopGroupFactory;
+import static com.nevermore.sbridge.io.EventLoopGroupProviderUtils.determineEventLoopGroupFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,12 +11,12 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import com.nevermore.sbridge.io.EventLoopGroupFactory;
+import com.nevermore.sbridge.handlers.WebSocketFrameHandler;
+import com.nevermore.sbridge.io.EventLoopGroupProvider;
 import com.nevermore.sbridge.io.SharableEventLoopGroup;
-import com.nevermore.sbridge.io.impl.EventLoopGroupSharableFactory;
+import com.nevermore.sbridge.io.impl.EventLoopGroupSharableProvider;
 import com.nevermore.sbridge.props.SbridgeProperties;
 import com.nevermore.sbridge.props.SbridgeProperties.WebsocketProperties;
-import com.nevermore.sbridge.protocols.WebSocketFrameHandler;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -41,18 +41,18 @@ public class WebsocketBridgeServer implements ApplicationRunner, DisposableBean 
     private static final Logger logger = LoggerFactory.getLogger(WebsocketBridgeServer.class);
 
     private final WebsocketProperties properties;
-    private final EventLoopGroupFactory eventLoopGroupFactory;
+    private final EventLoopGroupProvider eventLoopGroupProvider;
 
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
     private Channel serverChannel;
 
     public WebsocketBridgeServer(SbridgeProperties properties,
-            ObjectProvider<EventLoopGroupFactory> eventLoopGroupFactoryProvider) {
+            ObjectProvider<EventLoopGroupProvider> eventLoopGroupFactoryProvider) {
         this.properties = properties.bridge().websocket();
         var thisFactory = determineEventLoopGroupFactory(properties.bridge().enableSharedEventLoopGroup(),
                 properties.bridge().websocket(), eventLoopGroupFactoryProvider);
-        eventLoopGroupFactory = checkNotNull(thisFactory, "Can not determine EventLoopGroupFactory");
+        eventLoopGroupProvider = checkNotNull(thisFactory, "Can not determine EventLoopGroupProvider");
     }
 
     @Override
@@ -63,12 +63,12 @@ public class WebsocketBridgeServer implements ApplicationRunner, DisposableBean 
         }
         var port = properties.port();
         var path = properties.path();
-        var sharedMode = eventLoopGroupFactory instanceof EventLoopGroupSharableFactory;
+        var sharedMode = eventLoopGroupProvider instanceof EventLoopGroupSharableProvider;
         logger.info("Starting WebSocket server on port {} with path: {} running in sharedMode: {}", port, path,
                 sharedMode);
 
-        bossGroup = eventLoopGroupFactory.createBossGroup(BridgeServerRole.WEBSOCKET);
-        workerGroup = eventLoopGroupFactory.createWorkerGroup(BridgeServerRole.WEBSOCKET);
+        bossGroup = eventLoopGroupProvider.bossGroup(BridgeServerRole.WEBSOCKET);
+        workerGroup = eventLoopGroupProvider.workerGroup(BridgeServerRole.WEBSOCKET);
 
         startServer(port, path);
     }

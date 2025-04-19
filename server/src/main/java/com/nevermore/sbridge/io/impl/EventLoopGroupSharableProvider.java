@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Supplier;
-import com.nevermore.sbridge.io.EventLoopGroupFactory;
+import com.nevermore.sbridge.io.EventLoopGroupProvider;
 import com.nevermore.sbridge.io.SharableEventLoopGroup;
 import com.nevermore.sbridge.props.SbridgeProperties;
 import com.nevermore.sbridge.server.BridgeServerRole;
@@ -17,11 +17,11 @@ import io.netty.channel.nio.NioIoHandler;
  */
 @Lazy
 @Component
-public class EventLoopGroupSharableFactory implements EventLoopGroupFactory {
+public class EventLoopGroupSharableProvider implements EventLoopGroupProvider {
 
     private final SbridgeProperties properties;
 
-    public EventLoopGroupSharableFactory(SbridgeProperties properties) {
+    public EventLoopGroupSharableProvider(SbridgeProperties properties) {
         this.properties = properties;
     }
 
@@ -29,7 +29,7 @@ public class EventLoopGroupSharableFactory implements EventLoopGroupFactory {
     private volatile EventLoopGroup workerGroup;
 
     @Override
-    public EventLoopGroup createBossGroup(BridgeServerRole role) {
+    public EventLoopGroup bossGroup(BridgeServerRole role) {
         var eventLoopGroupProperties = properties.bridge().sharedEventLoopGroup();
         if (bossGroup == null) {
             synchronized (this) {
@@ -43,7 +43,7 @@ public class EventLoopGroupSharableFactory implements EventLoopGroupFactory {
     }
 
     @Override
-    public EventLoopGroup createWorkerGroup(BridgeServerRole role) {
+    public EventLoopGroup workerGroup(BridgeServerRole role) {
         var eventLoopGroupProperties = properties.bridge().sharedEventLoopGroup();
         if (workerGroup == null) {
             synchronized (this) {

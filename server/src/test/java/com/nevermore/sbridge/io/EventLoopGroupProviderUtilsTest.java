@@ -10,28 +10,28 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.ObjectProvider;
 
-import com.nevermore.sbridge.io.impl.EventLoopGroupSeperatedFactory;
-import com.nevermore.sbridge.io.impl.EventLoopGroupSharableFactory;
+import com.nevermore.sbridge.io.impl.EventLoopGroupSeperatedProvider;
+import com.nevermore.sbridge.io.impl.EventLoopGroupSharableProvider;
 import com.nevermore.sbridge.props.SbridgeProperties.BridgeCommonProperties;
 import com.nevermore.sbridge.props.SbridgeProperties.EventLoopGroupProperties;
 
 /**
  * @author nevermore
  */
-class EventLoopGroupFactoryUtilsTest {
+class EventLoopGroupProviderUtilsTest {
 
-    private ObjectProvider<EventLoopGroupFactory> mockProvider;
+    private ObjectProvider<EventLoopGroupProvider> mockProvider;
     private BridgeCommonProperties mockProperties;
-    private EventLoopGroupSharableFactory sharableFactory;
-    private EventLoopGroupSeperatedFactory seperatedFactory;
+    private EventLoopGroupSharableProvider sharableFactory;
+    private EventLoopGroupSeperatedProvider seperatedFactory;
 
     @SuppressWarnings("unchecked")
     @BeforeEach
     void setUp() {
         mockProvider = mock(ObjectProvider.class);
         mockProperties = mock(BridgeCommonProperties.class);
-        sharableFactory = mock(EventLoopGroupSharableFactory.class);
-        seperatedFactory = mock(EventLoopGroupSeperatedFactory.class);
+        sharableFactory = mock(EventLoopGroupSharableProvider.class);
+        seperatedFactory = mock(EventLoopGroupSeperatedProvider.class);
         EventLoopGroupProperties mockEventLoopGroupProps = mock(EventLoopGroupProperties.class);
 
         when(mockProperties.eventLoopGroup()).thenReturn(mockEventLoopGroupProps);
@@ -40,7 +40,7 @@ class EventLoopGroupFactoryUtilsTest {
     @Test
     void testNullPropertiesThrowsException() {
         assertThrows(NullPointerException.class,
-                () -> EventLoopGroupFactoryUtils.determineEventLoopGroupFactory(true, null, mockProvider),
+                () -> EventLoopGroupProviderUtils.determineEventLoopGroupFactory(true, null, mockProvider),
                 "Should throw NullPointerException when properties is null");
     }
 
@@ -51,12 +51,12 @@ class EventLoopGroupFactoryUtilsTest {
         when(mockProvider.stream()).thenReturn(java.util.stream.Stream.of(sharableFactory, seperatedFactory));
 
         // Test
-        EventLoopGroupFactory result = EventLoopGroupFactoryUtils.determineEventLoopGroupFactory(
+        EventLoopGroupProvider result = EventLoopGroupProviderUtils.determineEventLoopGroupFactory(
                 true, mockProperties, mockProvider);
 
         // Verify
         assertSame(sharableFactory, result,
-                "Should return EventLoopGroupSharableFactory when shared is enabled and separated is disabled");
+                "Should return EventLoopGroupSharableProvider when shared is enabled and separated is disabled");
     }
 
     @Test
@@ -66,12 +66,12 @@ class EventLoopGroupFactoryUtilsTest {
         when(mockProvider.stream()).thenReturn(java.util.stream.Stream.of(sharableFactory, seperatedFactory));
 
         // Test
-        EventLoopGroupFactory result = EventLoopGroupFactoryUtils.determineEventLoopGroupFactory(
+        EventLoopGroupProvider result = EventLoopGroupProviderUtils.determineEventLoopGroupFactory(
                 true, mockProperties, mockProvider);
 
         // Verify
         assertSame(seperatedFactory, result,
-                "Should return EventLoopGroupSeperatedFactory when separated is enabled even if shared is enabled");
+                "Should return EventLoopGroupSeperatedProvider when separated is enabled even if shared is enabled");
     }
 
     @Test
@@ -80,12 +80,12 @@ class EventLoopGroupFactoryUtilsTest {
         when(mockProvider.stream()).thenReturn(java.util.stream.Stream.of(sharableFactory, seperatedFactory));
 
         // Test
-        EventLoopGroupFactory result = EventLoopGroupFactoryUtils.determineEventLoopGroupFactory(
+        EventLoopGroupProvider result = EventLoopGroupProviderUtils.determineEventLoopGroupFactory(
                 false, mockProperties, mockProvider);
 
         // Verify
         assertSame(seperatedFactory, result,
-                "Should return EventLoopGroupSeperatedFactory when shared is disabled");
+                "Should return EventLoopGroupSeperatedProvider when shared is disabled");
     }
 
     @Test
@@ -95,7 +95,7 @@ class EventLoopGroupFactoryUtilsTest {
         when(mockProperties.enableSeparatedEventLoopGroup()).thenReturn(false);
 
         // Test
-        EventLoopGroupFactory result = EventLoopGroupFactoryUtils.determineEventLoopGroupFactory(
+        EventLoopGroupProvider result = EventLoopGroupProviderUtils.determineEventLoopGroupFactory(
                 true, mockProperties, mockProvider);
 
         // Verify
@@ -105,13 +105,13 @@ class EventLoopGroupFactoryUtilsTest {
     @Test
     void testMultipleFactoriesOfSameType() {
         // Setup - simulate multiple factories of same type
-        EventLoopGroupSharableFactory sharableFactory2 = mock(EventLoopGroupSharableFactory.class);
+        EventLoopGroupSharableProvider sharableFactory2 = mock(EventLoopGroupSharableProvider.class);
         when(mockProvider.stream()).thenReturn(java.util.stream.Stream.of(sharableFactory, sharableFactory2));
         when(mockProperties.enableSeparatedEventLoopGroup()).thenReturn(false);
 
         // Test & Verify
         assertThrows(IllegalStateException.class,
-                () -> EventLoopGroupFactoryUtils.determineEventLoopGroupFactory(true, mockProperties, mockProvider),
+                () -> EventLoopGroupProviderUtils.determineEventLoopGroupFactory(true, mockProperties, mockProvider),
                 "Should throw IllegalStateException when multiple factories of same type found");
     }
 }
