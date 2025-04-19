@@ -1,0 +1,57 @@
+syntax = "proto3";
+package ban;
+option java_multiple_files = true;
+option java_package = "com.nevermore.bridge.test";
+
+/**
+ *  所有接口均以 /api/v1/ 开头
+
+ *  POST /ban 封禁
+    return BaseRsp
+ *  POST /unban 解封
+    return BaseResp
+ */
+
+enum BanScene {
+  AUTH = 0;   // 登录
+  WALLET = 1; // 钱包
+  INTERACTIVE = 2; // 互动
+  ROOM = 3; // 房间
+}
+
+enum BanType {
+  ACCOUNT = 0; // 账户
+  ACCOUNT_AND_DEVICE = 1; // 账号+设备
+  WITHDRAW = 2; // 提现
+  GIVE = 3; // 打赏
+  WITHDRAW_AND_GIVE = 4; // 打赏+提现
+  UP_MIC = 5; // 上麦
+  PRIVATE_CHAT = 6; // 私聊
+  UP_MIC_AND_PRIVATE_CHAT = 7; // 上麦+私聊
+  ROOM_BAN = 8; // 房间
+  IP = 9; // ip
+}
+
+enum BanLevel {
+  S = 0;
+  A = 1;
+  B = 2;
+  C = 3;
+}
+
+message BanReq {
+  int64 bus_id = 1;
+  BanScene scene = 2;
+  BanType type = 3;
+  BanLevel level = 4;
+  string reason = 5;
+  string description = 6;
+  int64 operator_id = 7;
+  int64 banned_end_time = 8;
+}
+
+message UnbanReq {
+  int64 ban_operation = 1;
+  BanType type = 2;
+  int64 operator_id = 3;
+}
