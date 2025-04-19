@@ -1,4 +1,4 @@
-package com.nevermore.sbridge.protocols;
+package com.nevermore.sbridge.handlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
