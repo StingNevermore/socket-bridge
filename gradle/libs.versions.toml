@@ -1,5 +1,6 @@
 [versions]
 kotlin = "2.1.20"
+protobuf = "4.30.2"
 kotlinx = "1.8.1"
 springBoot = "3.4.4"
 springBootDependenciesPlugin = "1.1.7"
@@ -9,7 +10,6 @@ junitJupiter = "5.10.2"
 junitPlatformLauncher = "1.10.2"
 guava = "33.1.0-jre"
 netty = "4.2.0.Final"
-jackson = "2.16.2"
 commonsIo = "2.16.1"
 commonsLang3 = "3.14.0"
 # libraries
@@ -22,7 +22,7 @@ kover = "0.7.6"
 protobufPlugin = "0.9.5"
 picocli = "4.7.5"
 graalvm = "0.10.1"
-grpc = "1.70.0"
+grpc = "1.72.0"
 
 [libraries]
 springBootDependencies = { group = "org.springframework.boot", name = "spring-boot-dependencies", version.ref = "springBoot" }
@@ -44,6 +44,8 @@ junitPlatformLauncher = { group = "org.junit.platform", name = "junit-platform-l
 
 springAot = { module = "org.springframework.experimental:spring-aot", version.ref = "springAotVersion" }
 
+protobufJava = { group = "com.google.protobuf", name = "protobuf-java", version.ref = "protobuf" }
+protobufJavaUtil = { group = "com.google.protobuf", name = "protobuf-java-util", version.ref = "protobuf" }
 
 # for build conventions jvm dependencies
 kotlinGradlePlugin = { group = "org.jetbrains.kotlin.jvm", name = "org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }

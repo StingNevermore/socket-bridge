@@ -1,0 +1,21 @@
+syntax = "proto3";
+package com.nevermore.sbridge.proto;
+
+option java_package = "com.nevermore.sbridge.proto";
+option java_outer_classname = "SbridgeMessageProto";
+option java_multiple_files = true;
+
+message BridgeMessage {
+  int32 protocol_version = 1;
+  int32 message_id = 2;
+  int32 message_type = 3;
+  int64 body_length = 4;
+
+  BridgeMessageHeader header = 10;
+
+  bytes body = 100;
+}
+
+message BridgeMessageHeader {
+
+}

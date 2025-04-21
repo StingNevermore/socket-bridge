@@ -5,28 +5,18 @@ import org.slf4j.LoggerFactory;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 
 /**
  * Handler for WebSocket text frames.
  */
-public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
+public class WebSocketFrameHandler extends SimpleChannelInboundHandler<BinaryWebSocketFrame> {
     private static final Logger logger = LoggerFactory.getLogger(WebSocketFrameHandler.class);
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
-        // Handle text frame
-        if (frame instanceof TextWebSocketFrame) {
-            String request = ((TextWebSocketFrame) frame).text();
-            logger.info("Received request: {}", request);
-
-            // Echo the incoming message back to the client
-            ctx.channel().writeAndFlush(new TextWebSocketFrame("Server received: " + request));
-        } else {
-            String message = "Unsupported frame type: " + frame.getClass().getName();
-            throw new UnsupportedOperationException(message);
-        }
+    protected void channelRead0(ChannelHandlerContext ctx, BinaryWebSocketFrame frame) throws Exception {
+        frame = frame.retain();
+        
     }
 
     @Override
@@ -41,7 +31,7 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        logger.warn("Exception: {}", cause.getMessage());
+        logger.error("Exception caught", cause);
         ctx.close();
     }
 }

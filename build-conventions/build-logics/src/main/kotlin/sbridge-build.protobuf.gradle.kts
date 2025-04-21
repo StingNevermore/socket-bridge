@@ -1,5 +1,6 @@
 import com.google.protobuf.gradle.id
 import com.nevermore.sbridge.build.fromVersionCatalog
+import com.nevermore.sbridge.build.versionFromVersionCatalog
 
 plugins {
     id("sbridge-build.java-base")
@@ -9,10 +10,11 @@ plugins {
 dependencies {
     implementation(platform(fromVersionCatalog("grpcBom")))
 
-    compileOnly("com.google.protobuf:protobuf-java:4.30.2")
-    compileOnly("com.google.protobuf:protobuf-java-util:4.30.2")
+    compileOnly("com.google.protobuf:protobuf-java:${versionFromVersionCatalog("protobuf")}")
+    compileOnly("com.google.protobuf:protobuf-java-util:${versionFromVersionCatalog("protobuf")}")
     compileOnly("io.grpc:grpc-protobuf")
     compileOnly("io.grpc:grpc-stub")
+    compileOnly("io.grpc:grpc-api")
 }
 
 idea {
@@ -24,15 +26,13 @@ idea {
 }
 
 protobuf {
-    // Configure the protoc executable
     protoc {
-        // Download from repositories
-        artifact = "com.google.protobuf:protoc:4.30.2"
+        artifact = "com.google.protobuf:protoc:${versionFromVersionCatalog("protobuf")}"
     }
 
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.72.0"
+            artifact = "io.grpc:protoc-gen-grpc-java:${versionFromVersionCatalog("grpc")}"
         }
     }
     generateProtoTasks {

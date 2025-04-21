@@ -29,3 +29,11 @@ fun Project.coordinateFromVersionCatalog(name: String): String {
         .orElseThrow { GradleException("Could not find library $name") }
     return dependency.map { "${it.group}:${it.name}:${it.version}" }.get()
 }
+
+fun Project.versionFromVersionCatalog(name: String): String {
+    val versionCatalogs = extensions["versionCatalogs"] as VersionCatalogsExtension
+    val libs = versionCatalogs.named("libs")
+    return libs.findVersion(name).orElseThrow {
+        GradleException("Could not find version $name")
+    }.requiredVersion
+}

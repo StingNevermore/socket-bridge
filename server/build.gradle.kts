@@ -12,6 +12,9 @@ dependencies {
     implementation(libs.guava)
     implementation("io.netty:netty-all")
 
+    implementation(libs.protobufJava)
+    implementation(libs.protobufJavaUtil)
+
     // redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
 }
